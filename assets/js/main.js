@@ -7,8 +7,8 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 1. CONFIGURAÇÕES PRINCIPAIS (Fácil edição para o cliente)
   const CONFIG = {
-    // Altere este número para o WhatsApp real do professor (formato internacional sem + ou caracteres especiais)
-    whatsappNumber: '5533999999999',
+    // WhatsApp do professor Márcio Machado (formato internacional)
+    whatsappNumber: '5533988492064',
     whatsappDefaultMessage: 'Olá, professor! Vi o anúncio das aulas particulares de bateria e gostaria de saber como funciona e quais horários estão disponíveis.',
     whatsappExperimentalMessage: 'Olá, professor! Gostaria de agendar uma aula experimental de bateria e conhecer o método!'
   };

@@ -44,7 +44,7 @@ Para alterar o número do WhatsApp de atendimento, abra o arquivo `assets/js/mai
 
 ```javascript
 const CONFIG = {
-  whatsappNumber: '5533999999999', // Insira o DDI + DDD + Telefone (ex: 5533998765432)
+  whatsappNumber: '5533988492064', // WhatsApp oficial do Prof. Márcio Machado
   whatsappDefaultMessage: 'Olá, professor! Vi o anúncio das aulas particulares de bateria e gostaria de saber como funciona e quais horários estão disponíveis.',
   whatsappExperimentalMessage: 'Olá, professor! Gostaria de agendar uma aula experimental de bateria e conhecer o método!'
 };
