@@ -373,20 +373,26 @@
   <!-- =========================================================================
        4. VÍDEO / DEMONSTRAÇÃO DO PROFESSOR ("VEJA A BATERIA GANHAR VIDA")
        ========================================================================= -->
-  <section class="section-video-demo">
+  <section class="section-video-demo" id="demonstracao">
     <div class="container video-demo-grid">
       
-      <!-- Card Interativo de Vídeo/Player -->
-      <div class="video-player-container" id="video-preview-trigger" title="Clique para assistir e ouvir a demonstração">
-        <img src="assets/images/professor-palco.jpg" alt="Professor em ação na bateria" class="video-thumbnail">
-        <div class="video-overlay-tint"></div>
-        
-        <span class="video-live-badge">DEMONSTRAÇÃO AO VIVO</span>
-
-        <div class="play-btn-circle">
-          <svg viewBox="0 0 24 24">
-            <path d="M8 5v14l11-7z"/>
-          </svg>
+      <!-- Card / Player de Vídeo Simples -->
+      <div class="video-player-box">
+        <div class="video-frame-container" id="video-frame-box">
+          <video id="drum-demo-video" class="drum-video-media" controls playsinline poster="assets/images/professor-palco.jpg" preload="metadata">
+            <source src="assets/videos/demonstracao-bateria.mp4" type="video/mp4">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+            Seu navegador não suporta a reprodução deste vídeo.
+          </video>
+          
+          <div class="video-play-overlay" id="video-play-overlay">
+            <div class="play-btn-circle">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <span class="video-play-text">Assistir Demonstração</span>
+          </div>
         </div>
       </div>
 
@@ -398,7 +404,7 @@
         </h2>
         
         <p class="video-info-desc">
-          Assista a uma demonstração e sinta a energia, o groove e a liberdade que você também pode conquistar.
+          Assista à demonstração e sinta a energia, o groove e a pegada que você também vai desenvolver nas aulas práticas.
         </p>
 
         <a href="#" class="btn-cta-primary" data-wa-action="default" id="btn-video-cta">
@@ -926,57 +932,6 @@
       </svg>
     </a>
   </aside>
-
-  <!-- =========================================================================
-       MODAL DE DEMONSTRAÇÃO INTERATIVA
-       ========================================================================= -->
-  <div class="video-modal-backdrop" id="video-demo-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="video-modal-content">
-      <button class="video-modal-close" aria-label="Fechar demonstração">&times;</button>
-      
-      <h3 id="modal-title" class="stage-title" style="font-size: 1.8rem; margin-bottom: 0.5rem;">Sinta a Pressão do Groove</h3>
-      <p style="color: var(--text-secondary); font-size: 0.95rem;">
-        Veja a demonstração de ritmo da bateria e sinta a energia do instrumento:
-      </p>
-
-      <!-- Sintetizador e Equalizador de Demonstração -->
-      <div class="audio-groove-demo">
-        <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center;">
-          <label for="groove-style-select" style="font-weight: 700; color: var(--gold-400); font-size: 0.9rem;">
-            Estilo de Ritmo:
-          </label>
-          <select id="groove-style-select" style="background: #1a1a24; color: #fff; border: 1px solid var(--border-gold); padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: 600;">
-            <option value="rock">Rock / Pop Dinâmico (105 BPM)</option>
-            <option value="funk">Funk / Groove Sincopado (105 BPM)</option>
-          </select>
-        </div>
-
-        <div class="equalizer-bars">
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-          <div class="eq-bar"></div>
-        </div>
-
-        <button id="btn-play-groove" class="btn-cta-primary" style="font-size: 1rem; padding: 0.9rem 1.8rem;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          Ouvir Groove da Bateria ao Vivo
-        </button>
-      </div>
-
-      <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-        Quer aprender a tocar ritmos como esse nas suas músicas prediletas?
-      </p>
-
-      <a href="#" class="btn-cta-primary" data-wa-action="default" style="display: inline-flex;">
-        <span>Quero Aprender na Prática</span>
-      </a>
-    </div>
-  </div>
 
   <!-- Scripts JS -->
   <script src="assets/js/main.js"></script>

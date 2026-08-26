@@ -23,8 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupClassCarousel();
   setupFaqAccordion();
   setupHeroParallax();
-  setupVideoDemoModal();
-  setupWebAudioDrumMachine();
+  setupSimpleVideoPlayer();
   setupSmoothScroll();
 });
 
@@ -165,229 +164,40 @@ function setupHeroParallax() {
 }
 
 /**
- * Modal Interativo de Vídeo e Demonstração Sonora
+ * Player de Vídeo Simples da Seção 4 ("Veja a bateria ganhar vida")
  */
-function setupVideoDemoModal() {
-  const videoCard = document.querySelector('.video-player-container');
-  const modalBackdrop = document.querySelector('.video-modal-backdrop');
-  const closeBtn = document.querySelector('.video-modal-close');
+function setupSimpleVideoPlayer() {
+  const video = document.getElementById('drum-demo-video');
+  const overlay = document.getElementById('video-play-overlay');
 
-  if (!videoCard || !modalBackdrop) return;
+  if (!video || !overlay) return;
 
-  const openModal = () => {
-    modalBackdrop.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
-
-  const closeModal = () => {
-    modalBackdrop.classList.remove('open');
-    document.body.style.overflow = '';
-    // Pausa o ritmo sonoro se estiver tocando
-    if (window.drumAudioState && window.drumAudioState.isPlaying) {
-      window.drumAudioState.stop();
-    }
-  };
-
-  videoCard.addEventListener('click', openModal);
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  modalBackdrop.addEventListener('click', (e) => {
-    if (e.target === modalBackdrop) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modalBackdrop.classList.contains('open')) {
-      closeModal();
-    }
-  });
-}
-
-/**
- * Sintetizador Real de Bateria com Web Audio API (Demonstração Sonora Realística)
- */
-function setupWebAudioDrumMachine() {
-  let audioCtx = null;
-  let isPlaying = false;
-  let timerId = null;
-  let currentStep = 0;
-  let tempo = 105; // BPM do Groove
-
-  const playBtn = document.getElementById('btn-play-groove');
-  const eqBars = document.querySelectorAll('.eq-bar');
-  const grooveSelector = document.getElementById('groove-style-select');
-
-  if (!playBtn) return;
-
-  function initAudio() {
-    if (!audioCtx) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      audioCtx = new AudioContext();
-    }
-    if (audioCtx.state === 'suspended') {
-      audioCtx.resume();
-    }
-  }
-
-  // Sons sintéticos de bateria ultra-realistas via Web Audio API
-  function playKick(time) {
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    osc.frequency.setValueAtTime(140, time);
-    osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.4);
-
-    gain.gain.setValueAtTime(1, time);
-    gain.gain.exponentialRampToValueAtTime(0.01, time + 0.4);
-
-    osc.start(time);
-    osc.stop(time + 0.4);
-  }
-
-  function playSnare(time) {
-    // Noise buffer
-    const bufferSize = audioCtx.sampleRate * 0.2;
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-
-    const noise = audioCtx.createBufferSource();
-    noise.buffer = buffer;
-
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.value = 800;
-    noise.connect(filter);
-
-    const noiseGain = audioCtx.createGain();
-    noiseGain.gain.setValueAtTime(0.8, time);
-    noiseGain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
-    filter.connect(noiseGain);
-    noiseGain.connect(audioCtx.destination);
-
-    // Corpo do tambor (Tone)
-    const osc = audioCtx.createOscillator();
-    const toneGain = audioCtx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(180, time);
-    osc.frequency.exponentialRampToValueAtTime(40, time + 0.15);
-    toneGain.gain.setValueAtTime(0.6, time);
-    toneGain.gain.exponentialRampToValueAtTime(0.01, time + 0.15);
-
-    osc.connect(toneGain);
-    toneGain.connect(audioCtx.destination);
-
-    noise.start(time);
-    osc.start(time);
-    noise.stop(time + 0.2);
-    osc.stop(time + 0.15);
-  }
-
-  function playHiHat(time, open = false) {
-    const bufferSize = audioCtx.sampleRate * (open ? 0.35 : 0.05);
-    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-    const data = buffer.getChannelData(0);
-    for (let i = 0; i < bufferSize; i++) {
-      data[i] = Math.random() * 2 - 1;
-    }
-
-    const noise = audioCtx.createBufferSource();
-    noise.buffer = buffer;
-
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'highpass';
-    filter.frequency.value = 6500;
-    noise.connect(filter);
-
-    const gain = audioCtx.createGain();
-    gain.gain.setValueAtTime(0.4, time);
-    gain.gain.exponentialRampToValueAtTime(0.01, time + (open ? 0.35 : 0.05));
-
-    filter.connect(gain);
-    gain.connect(audioCtx.destination);
-
-    noise.start(time);
-    noise.stop(time + (open ? 0.35 : 0.05));
-  }
-
-  // Padrões de Groove de 16 semicolcheias
-  const GROOVES = {
-    rock: {
-      kick:  [1, 0, 0, 0,  0, 0, 0, 0,  1, 0, 1, 0,  0, 0, 0, 0],
-      snare: [0, 0, 0, 0,  1, 0, 0, 0,  0, 0, 0, 0,  1, 0, 0, 0],
-      hihat: [1, 0, 1, 0,  1, 0, 1, 0,  1, 0, 1, 0,  1, 0, 1, 0]
-    },
-    funk: {
-      kick:  [1, 0, 0, 1,  0, 0, 1, 0,  0, 1, 0, 0,  1, 0, 0, 0],
-      snare: [0, 0, 0, 0,  1, 0, 0, 1,  0, 0, 1, 0,  1, 0, 0, 1],
-      hihat: [1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1,  1, 1, 1, 1]
-    }
-  };
-
-  let selectedStyle = 'rock';
-  if (grooveSelector) {
-    grooveSelector.addEventListener('change', (e) => {
-      selectedStyle = e.target.value;
+  // Clique no overlay inicia o vídeo
+  overlay.addEventListener('click', () => {
+    overlay.classList.add('hidden');
+    video.play().catch(err => {
+      console.log('Autoplay prevenido:', err);
     });
-  }
+  });
 
-  function stepScheduler() {
-    const stepTime = (60 / tempo) / 4;
-    const now = audioCtx.currentTime;
-    const pattern = GROOVES[selectedStyle] || GROOVES.rock;
+  // Oculta o overlay quando o vídeo começa a rodar
+  video.addEventListener('play', () => {
+    overlay.classList.add('hidden');
+  });
 
-    if (pattern.kick[currentStep]) playKick(now);
-    if (pattern.snare[currentStep]) playSnare(now);
-    if (pattern.hihat[currentStep]) playHiHat(now, currentStep === 14);
-
-    currentStep = (currentStep + 1) % 16;
-  }
-
-  function startGroove() {
-    initAudio();
-    isPlaying = true;
-    currentStep = 0;
-    const intervalMs = ((60 / tempo) / 4) * 1000;
-    timerId = setInterval(stepScheduler, intervalMs);
-    
-    playBtn.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-      Pausar Groove de Demonstração
-    `;
-    playBtn.classList.add('playing');
-    eqBars.forEach(bar => bar.classList.add('animating'));
-  }
-
-  function stopGroove() {
-    isPlaying = false;
-    if (timerId) clearInterval(timerId);
-    timerId = null;
-
-    playBtn.innerHTML = `
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-      Ouvir Groove da Bateria ao Vivo
-    `;
-    playBtn.classList.remove('playing');
-    eqBars.forEach(bar => bar.classList.remove('animating'));
-  }
-
-  playBtn.addEventListener('click', () => {
-    if (isPlaying) {
-      stopGroove();
-    } else {
-      startGroove();
+  // Mostra o overlay se o vídeo pausar no início ou terminar
+  video.addEventListener('pause', () => {
+    if (video.currentTime === 0 || video.ended) {
+      overlay.classList.remove('hidden');
     }
   });
 
-  // Exporta estado para fechar quando modal fecha
-  window.drumAudioState = {
-    isPlaying: () => isPlaying,
-    stop: stopGroove
-  };
+  video.addEventListener('ended', () => {
+    overlay.classList.remove('hidden');
+  });
 }
+
+
 
 /**
  * Scroll Suave com compensação da barra de navegação fixa
