@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Inicializa componentes
   setupHeaderScroll();
+  setupFloatingWhatsAppScroll();
   setupMobileNav();
   setupClassCarousel();
   setupFaqAccordion();
@@ -452,5 +453,53 @@ function setupClassCarousel() {
       cards[activeIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
   });
+}
+
+/**
+ * Controla a visibilidade e o esmaecimento suave do botão flutuante do WhatsApp
+ * Invisível na Hero e surgindo suavemente até ficar 100% sólido ao rolar até a 2ª seção
+ */
+function setupFloatingWhatsAppScroll() {
+  const floatingWa = document.querySelector('.floating-whatsapp');
+  const heroSection = document.querySelector('.hero-section');
+  const secondSection = document.querySelector('#aulas') || document.querySelector('.section-objections');
+  
+  if (!floatingWa || !heroSection) return;
+
+  const updateVisibility = () => {
+    const scrollY = window.scrollY;
+    const heroHeight = heroSection.offsetHeight;
+    
+    // Início do fade (a partir de 35% da hero) e término do fade sólido (ao atingir a 2ª seção)
+    const fadeStart = heroHeight * 0.35;
+    const fadeEnd = secondSection ? Math.max(secondSection.offsetTop - 180, heroHeight * 0.75) : heroHeight * 0.8;
+
+    if (scrollY <= fadeStart) {
+      floatingWa.style.opacity = '0';
+      floatingWa.style.visibility = 'hidden';
+      floatingWa.style.pointerEvents = 'none';
+      floatingWa.style.transform = 'translateY(20px) scale(0.85)';
+    } else if (scrollY >= fadeEnd) {
+      floatingWa.style.opacity = '1';
+      floatingWa.style.visibility = 'visible';
+      floatingWa.style.pointerEvents = 'auto';
+      floatingWa.style.transform = 'translateY(0) scale(1)';
+    } else {
+      // Interpolação suave e progressiva de opacidade e escala
+      const progress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+      const easedProgress = Math.min(Math.max(progress, 0), 1);
+      const translateY = 20 * (1 - easedProgress);
+      const scale = 0.85 + (0.15 * easedProgress);
+
+      floatingWa.style.opacity = easedProgress.toFixed(3);
+      floatingWa.style.visibility = 'visible';
+      floatingWa.style.pointerEvents = easedProgress > 0.5 ? 'auto' : 'none';
+      floatingWa.style.transform = `translateY(${translateY.toFixed(1)}px) scale(${scale.toFixed(3)})`;
+    }
+  };
+
+  window.addEventListener('scroll', updateVisibility, { passive: true });
+  window.addEventListener('resize', updateVisibility, { passive: true });
+  updateVisibility(); // Execução inicial para garantir estado correto ao carregar
 }
 
