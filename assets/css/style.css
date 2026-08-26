@@ -225,29 +225,40 @@ button {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  letter-spacing: 1.5px;
-  color: #fff;
+  text-decoration: none;
 }
 
 .brand-logo-icon {
-  width: 42px;
-  height: 42px;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(255, 152, 0, 0.08));
-  border: 1px solid var(--border-gold);
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--gold-400);
-  box-shadow: 0 0 15px rgba(245, 158, 11, 0.2);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  flex-shrink: 0;
 }
 
-.brand-logo-icon svg {
-  width: 26px;
-  height: 26px;
-  fill: currentColor;
+.brand-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.brand-logo-text .logo-name {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.brand-logo-text .logo-tag {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  letter-spacing: 3.5px;
+  font-weight: 700;
+  color: var(--gold-500);
 }
 
 .nav-menu {
@@ -312,67 +323,76 @@ button {
 
 .mobile-toggle {
   display: none;
-  font-size: 1.6rem;
-  color: #fff;
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0.2rem;
 }
 
 /* ==========================================================================
-   HERO SECTION
+   HERO SECTION (LAYOUT FIEL AO MODELO + FOTO COM ESMAECIMENTO SUAVE)
    ========================================================================== */
 
 .hero-section {
-  min-height: 100vh;
-  padding-top: calc(var(--header-height) + 2rem);
-  padding-bottom: 5rem;
-  display: flex;
-  align-items: center;
   position: relative;
+  padding-top: calc(var(--header-height) + 1.8rem);
+  padding-bottom: 4rem;
   overflow: hidden;
+  text-align: center;
 }
 
 .hero-glow-bg {
   position: absolute;
-  top: 15%;
-  right: 5%;
-  width: 550px;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
   height: 550px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, rgba(255, 152, 0, 0.08) 50%, transparent 70%);
-  filter: blur(70px);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(255, 152, 0, 0.06) 50%, transparent 75%);
+  filter: blur(80px);
   pointer-events: none;
   z-index: 0;
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+.hero-container-box {
+  max-width: 680px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 3.5rem;
   position: relative;
   z-index: 1;
 }
 
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+.hero-header-block {
+  margin-bottom: 0.6rem;
+  text-align: center;
+}
+
+.hero-tagline {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  color: var(--gold-500);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 5.2vw, 4.5rem);
+  font-size: clamp(2.6rem, 7vw, 4.4rem);
   line-height: 1.05;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  margin-bottom: 1.2rem;
   color: #ffffff;
+  margin-bottom: 0.8rem;
 }
 
 .hero-title .highlight {
-  color: var(--gold-400);
-  background: linear-gradient(135deg, #ffe066 0%, #f59e0b 50%, #ff8800 100%);
+  color: var(--gold-500);
+  background: linear-gradient(135deg, #ffd700 0%, #ff9800 50%, #f59e0b 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline;
@@ -381,19 +401,82 @@ button {
 .hero-description {
   font-size: 1.15rem;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  max-width: 580px;
+  line-height: 1.5;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.city-highlight {
+  color: var(--gold-400);
+  font-weight: 700;
+}
+
+/* Foto do Professor com Efeito de Esmaecimento (Feathered / Vignette Fade) */
+.hero-faded-image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0.8rem auto 1.5rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.faded-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 90%;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.28) 0%, rgba(255, 152, 0, 0.08) 50%, transparent 75%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-faded-img {
+  width: 100%;
+  max-height: 380px;
+  object-fit: cover;
+  object-position: center 20%;
+  position: relative;
+  z-index: 1;
+  border-radius: 20px;
+  /* Efeito de esmaecimento suave nas bordas */
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 45%, transparent 95%);
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 45%, transparent 95%);
+  transition: transform 0.5s ease;
+}
+
+.hero-faded-image-wrap:hover .hero-faded-img {
+  transform: scale(1.03);
+}
+
+.image-fade-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(9, 9, 12, 0.3) 70%, rgba(9, 9, 12, 0.95) 100%),
+              linear-gradient(180deg, transparent 65%, rgba(9, 9, 12, 0.9) 100%);
 }
 
 /* CTA Principal com Efeito Pulsante */
-.cta-group {
+.hero-cta-block {
+  width: 100%;
+  max-width: 440px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 0.7rem;
-  margin-bottom: 2.5rem;
-  width: 100%;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 3;
 }
 
 .btn-cta-primary {
@@ -412,6 +495,7 @@ button {
   box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   position: relative;
   overflow: hidden;
+  width: 100%;
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   animation: pulse-glow 2.5s infinite;
 }
@@ -446,127 +530,13 @@ button {
 }
 
 .cta-subtext {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-}
-
-.cta-subtext-icon {
-  color: var(--wa-green);
-}
-
-/* 3 Indicadores de Confiança (Badges Hero) */
-.hero-badges-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-subtle);
-  width: 100%;
-}
-
-.hero-badge-item {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: 0.92rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-}
-
-.hero-badge-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  color: var(--gold-400);
-  display: flex;
-  align-items: center;
   justify-content: center;
-  font-size: 1rem;
-}
-
-.hero-badge-icon svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-/* Imagem Hero à Direita */
-.hero-visual-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-image-card {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  border: 2px solid var(--border-gold);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px rgba(245, 158, 11, 0.25);
-  background: var(--bg-card);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  width: 100%;
-  max-width: 480px;
-}
-
-.hero-image-card:hover {
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 45px rgba(245, 158, 11, 0.4);
-}
-
-.hero-image-card img {
-  width: 100%;
-  height: 520px;
-  object-fit: cover;
-  object-position: center top;
-  transition: transform 0.6s ease;
-}
-
-.hero-image-card:hover img {
-  transform: scale(1.03);
-}
-
-.hero-image-badge {
-  position: absolute;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  right: 1.5rem;
-  background: rgba(15, 15, 20, 0.88);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-gold);
-  border-radius: 14px;
-  padding: 0.9rem 1.2rem;
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-.hero-image-badge-dot {
-  width: 12px;
-  height: 12px;
-  background: var(--wa-green);
-  border-radius: 50%;
-  box-shadow: 0 0 10px var(--wa-green);
-  animation: pulse-dot 1.5s infinite;
-  flex-shrink: 0;
-}
-
-.hero-image-badge-text h4 {
-  font-size: 0.92rem;
-  font-weight: 700;
-  color: #fff;
-  line-height: 1.2;
-}
-
-.hero-image-badge-text p {
-  font-size: 0.78rem;
-  color: var(--gold-400);
+  gap: 0.6rem;
+  font-weight: 500;
 }
 
 /* ==========================================================================
@@ -2006,8 +1976,7 @@ button {
   }
 
   /* ==========================================================================
-     HERO MOBILE ACIMA DA DOBRA:
-     Ordem Exata: 1. Headline -> 2. Subheadline -> 3. Imagem Principal -> 4. CTA
+     HERO MOBILE (LAYOUT FIEL AO MODELO ACIMA DA DOBRA)
      ========================================================================== */
   .hero-section {
     min-height: auto;
@@ -2015,120 +1984,52 @@ button {
     padding-bottom: 2rem;
   }
 
-  .hero-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0;
+  .hero-header-block {
+    margin-bottom: 0.4rem;
   }
 
-  .hero-content {
-    display: contents; /* Permite ordenar os elementos filhos juntamente com a imagem */
-  }
-
-  .badge-location {
-    order: 1;
-    margin-bottom: 0.45rem;
-    padding: 0.25rem 0.75rem;
+  .hero-tagline {
     font-size: 0.72rem;
+    letter-spacing: 2.2px;
+    margin-bottom: 0.35rem;
   }
 
   .hero-title {
-    order: 2;
-    font-size: clamp(1.75rem, 6.5vw, 2.25rem);
-    line-height: 1.1;
+    font-size: clamp(2rem, 7.6vw, 2.7rem);
+    line-height: 1.06;
     margin-bottom: 0.45rem;
-    text-align: center;
   }
 
   .hero-description {
-    order: 3;
     font-size: 0.88rem;
     line-height: 1.38;
-    margin-bottom: 0.85rem;
-    max-width: 480px;
-    text-align: center;
+    max-width: 320px;
+    margin: 0 auto;
   }
 
-  .hero-visual-wrapper {
-    order: 4;
-    width: 100%;
+  .hero-faded-image-wrap {
     max-width: 360px;
-    margin: 0 auto 0.9rem auto;
+    margin: 0.5rem auto 1rem auto;
   }
 
-  .hero-image-card {
-    border-radius: 14px;
-    max-width: 100%;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7), 0 0 20px rgba(245, 158, 11, 0.2);
+  .hero-faded-img {
+    max-height: 250px;
   }
 
-  .hero-image-card img {
-    height: clamp(160px, 23vh, 210px);
-    object-position: center 25%;
-  }
-
-  .hero-image-badge {
-    padding: 0.4rem 0.7rem;
-    bottom: 0.6rem;
-    left: 0.6rem;
-    right: 0.6rem;
-    border-radius: 10px;
-    gap: 0.5rem;
-  }
-
-  .hero-image-badge-dot {
-    width: 8px;
-    height: 8px;
-  }
-
-  .hero-image-badge-text h4 {
-    font-size: 0.78rem;
-  }
-
-  .hero-image-badge-text p {
-    font-size: 0.68rem;
-  }
-
-  .cta-group {
-    order: 5;
-    align-items: center;
-    width: 100%;
-    max-width: 380px;
-    margin-bottom: 0.9rem;
-    gap: 0.4rem;
+  .hero-cta-block {
+    max-width: 360px;
+    gap: 0.45rem;
   }
 
   .btn-cta-primary {
-    width: 100%;
     font-size: 0.95rem;
-    padding: 0.85rem 1.3rem;
+    padding: 0.9rem 1.4rem;
     border-radius: 12px;
   }
 
   .cta-subtext {
     font-size: 0.78rem;
-    text-align: center;
-    justify-content: center;
-  }
-
-  .hero-badges-row {
-    order: 6;
-    justify-content: center;
-    gap: 0.75rem;
-    padding-top: 0.8rem;
-  }
-
-  .hero-badge-item {
-    font-size: 0.8rem;
     gap: 0.4rem;
-  }
-
-  .hero-badge-icon {
-    width: 26px;
-    height: 26px;
-    font-size: 0.8rem;
   }
 
   /* Outras seções no Mobile */
