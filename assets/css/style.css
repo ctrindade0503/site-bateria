@@ -330,47 +330,53 @@ button {
 }
 
 /* ==========================================================================
-   HERO SECTION (LAYOUT FIEL AO MODELO + FOTO COM ESMAECIMENTO SUAVE)
+   HERO SECTION (DESKTOP: TEXTO/CTA À ESQUERDA + FOTO À DIREITA)
    ========================================================================== */
 
 .hero-section {
   position: relative;
-  padding-top: calc(var(--header-height) + 2.4rem);
+  padding-top: calc(var(--header-height) + 2.5rem);
   padding-bottom: 5.5rem;
   overflow: hidden;
-  text-align: center;
+  text-align: left;
 }
 
 .hero-glow-bg {
   position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
+  top: 15%;
+  right: 5%;
+  width: 750px;
   height: 650px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.25) 0%, rgba(255, 152, 0, 0.07) 50%, transparent 75%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(255, 152, 0, 0.06) 50%, transparent 75%);
   filter: blur(90px);
   pointer-events: none;
   z-index: 0;
 }
 
-.hero-container-box {
-  max-width: 760px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+.hero-split-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
+  gap: 3.5rem;
   position: relative;
   z-index: 1;
+  text-align: left;
+}
+
+.hero-left-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .hero-header-block {
-  margin-bottom: 1rem;
-  text-align: center;
+  margin-bottom: 1.8rem;
+  text-align: left;
 }
 
 .hero-tagline {
-  display: block;
+  display: inline-block;
   font-family: var(--font-heading);
   font-size: 0.95rem;
   font-weight: 800;
@@ -382,12 +388,13 @@ button {
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3.2rem, 8.5vw, 5.2rem);
+  font-size: clamp(3rem, 5vw, 4.8rem);
   line-height: 1.04;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #ffffff;
   margin-bottom: 1.1rem;
+  text-align: left;
 }
 
 .hero-title .highlight {
@@ -399,11 +406,12 @@ button {
 }
 
 .hero-description {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--text-secondary);
-  line-height: 1.55;
-  max-width: 580px;
-  margin: 0 auto;
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0;
+  text-align: left;
 }
 
 .city-highlight {
@@ -411,12 +419,19 @@ button {
   font-weight: 700;
 }
 
-/* Foto do Professor com Efeito de Esmaecimento (Feathered / Vignette Fade) */
+/* Lado Direito (Desktop): Imagem com Esmaecimento Suave nas Bordas */
+.hero-right-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 .hero-faded-image-wrap {
   position: relative;
   width: 100%;
-  max-width: 620px;
-  margin: 1.5rem auto 2.5rem auto;
+  max-width: 520px;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -437,7 +452,7 @@ button {
 
 .hero-faded-img {
   width: 100%;
-  max-height: 460px;
+  max-height: 480px;
   object-fit: cover;
   object-position: center 20%;
   position: relative;
@@ -469,11 +484,11 @@ button {
 /* CTA Principal com Efeito Pulsante */
 .hero-cta-block {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
+  max-width: 440px;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: 0.8rem;
   position: relative;
   z-index: 3;
@@ -487,10 +502,10 @@ button {
   background: linear-gradient(135deg, #25d366 0%, #1ebd5a 100%);
   color: #ffffff;
   font-weight: 800;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 1.35rem 2.8rem;
+  padding: 1.3rem 2.6rem;
   border-radius: 16px;
   box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   position: relative;
@@ -530,11 +545,11 @@ button {
 }
 
 .cta-subtext {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   color: var(--text-muted);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 0.7rem;
   font-weight: 500;
 }
@@ -1995,10 +2010,25 @@ button {
     min-height: auto;
     padding-top: calc(var(--header-height) + 1.2rem);
     padding-bottom: 3.5rem;
+    text-align: center;
+  }
+
+  .hero-split-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+  }
+
+  .hero-left-content {
+    display: contents; /* Desembrulha para permitir a ordenação perfeita com a imagem no mobile */
   }
 
   .hero-header-block {
+    order: 1;
     margin-bottom: 0.75rem;
+    text-align: center;
   }
 
   .hero-tagline {
@@ -2011,6 +2041,7 @@ button {
     font-size: clamp(2.4rem, 8.5vw, 3.4rem);
     line-height: 1.05;
     margin-bottom: 0.7rem;
+    text-align: center;
   }
 
   .hero-description {
@@ -2018,6 +2049,14 @@ button {
     line-height: 1.48;
     max-width: 360px;
     margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-right-visual {
+    order: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .hero-faded-image-wrap {
@@ -2030,7 +2069,10 @@ button {
   }
 
   .hero-cta-block {
+    order: 3;
     max-width: 400px;
+    margin: 0 auto;
+    align-items: center;
     gap: 0.65rem;
   }
 
@@ -2042,6 +2084,7 @@ button {
 
   .cta-subtext {
     font-size: 0.85rem;
+    justify-content: center;
     gap: 0.5rem;
   }
 
