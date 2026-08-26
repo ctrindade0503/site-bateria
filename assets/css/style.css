@@ -330,25 +330,29 @@ button {
 }
 
 /* ==========================================================================
-   HERO SECTION (DESKTOP: TEXTO/CTA À ESQUERDA + FOTO À DIREITA)
+   HERO SECTION (DESKTOP: LAYOUT EXATO FIEL AO MODELO COM FOTO INTEGRADA)
    ========================================================================== */
 
 .hero-section {
   position: relative;
-  padding-top: calc(var(--header-height) + 2.5rem);
-  padding-bottom: 5.5rem;
+  min-height: calc(100vh - var(--header-height));
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--header-height) + 1.2rem);
+  padding-bottom: 2.5rem;
+  background-color: #060608;
   overflow: hidden;
   text-align: left;
 }
 
 .hero-glow-bg {
   position: absolute;
-  top: 15%;
-  right: 5%;
-  width: 750px;
-  height: 650px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(255, 152, 0, 0.06) 50%, transparent 75%);
-  filter: blur(90px);
+  top: 18%;
+  right: 15%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.16) 0%, rgba(255, 152, 0, 0.04) 50%, transparent 75%);
+  filter: blur(100px);
   pointer-events: none;
   z-index: 0;
 }
@@ -357,10 +361,10 @@ button {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   align-items: center;
-  gap: 3.5rem;
+  min-height: calc(100vh - var(--header-height) - 4rem);
   position: relative;
-  z-index: 1;
-  text-align: left;
+  z-index: 2;
+  gap: 2rem;
 }
 
 .hero-left-content {
@@ -368,28 +372,30 @@ button {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  z-index: 3;
+  max-width: 580px;
 }
 
 .hero-header-block {
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.5rem;
   text-align: left;
 }
 
 .hero-tagline {
   display: inline-block;
   font-family: var(--font-heading);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-weight: 800;
   letter-spacing: 3.5px;
   color: var(--gold-500);
   text-transform: uppercase;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.75rem;
 }
 
 .hero-title {
   font-family: var(--font-display);
-  font-size: clamp(3rem, 5vw, 4.8rem);
-  line-height: 1.04;
+  font-size: clamp(3.2rem, 5.2vw, 4.8rem);
+  line-height: 1.02;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: #ffffff;
@@ -406,66 +412,58 @@ button {
 }
 
 .hero-description {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 540px;
+  font-size: 1.15rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+  max-width: 500px;
   margin: 0;
   text-align: left;
 }
 
 .city-highlight {
-  color: var(--gold-400);
+  color: #ffd700;
   font-weight: 700;
 }
 
-/* Lado Direito (Desktop): Imagem com Esmaecimento Suave nas Bordas */
+/* Lado Direito (Desktop): Imagem Ampla Integrada ao Fundo com Degradê nas Bordas */
 .hero-right-visual {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 58%;
+  height: 100%;
+  z-index: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
-  position: relative;
+  justify-content: flex-end;
+  pointer-events: none;
 }
 
 .hero-faded-image-wrap {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  margin: 0;
+  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.faded-ambient-glow {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 95%;
-  height: 95%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.32) 0%, rgba(255, 152, 0, 0.1) 50%, transparent 75%);
-  filter: blur(50px);
-  z-index: 0;
-  pointer-events: none;
+  align-items: flex-end;
+  justify-content: flex-end;
 }
 
 .hero-faded-img {
   width: 100%;
-  max-height: 480px;
+  height: 100%;
+  max-height: none;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 30%;
   position: relative;
   z-index: 1;
-  border-radius: 24px;
-  /* Efeito de esmaecimento suave nas bordas */
-  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 45%, transparent 95%);
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 45%, transparent 95%);
-  transition: transform 0.5s ease;
-}
-
-.hero-faded-image-wrap:hover .hero-faded-img {
-  transform: scale(1.03);
+  /* Degradê suave nas bordas: fade na esquerda, topo e base */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 12%, rgba(0,0,0,0.85) 32%, black 50%, black 100%),
+                      linear-gradient(to bottom, transparent 0%, black 8%, black 88%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 12%, rgba(0,0,0,0.85) 32%, black 50%, black 100%),
+              linear-gradient(to bottom, transparent 0%, black 8%, black 88%, transparent 100%);
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
 }
 
 .image-fade-vignette {
@@ -476,9 +474,9 @@ button {
   bottom: 0;
   z-index: 2;
   pointer-events: none;
-  border-radius: 24px;
-  background: radial-gradient(ellipse at center, transparent 40%, rgba(9, 9, 12, 0.3) 70%, rgba(9, 9, 12, 0.95) 100%),
-              linear-gradient(180deg, transparent 65%, rgba(9, 9, 12, 0.9) 100%);
+  background: linear-gradient(to right, #060608 0%, rgba(6, 6, 8, 0.7) 12%, transparent 38%),
+              linear-gradient(to top, #060608 0%, rgba(6, 6, 8, 0.6) 5%, transparent 20%),
+              linear-gradient(to bottom, #060608 0%, rgba(6, 6, 8, 0.5) 4%, transparent 15%);
 }
 
 /* CTA Principal com Efeito Pulsante */
@@ -502,12 +500,12 @@ button {
   background: linear-gradient(135deg, #25d366 0%, #1ebd5a 100%);
   color: #ffffff;
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1.18rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  padding: 1.3rem 2.6rem;
-  border-radius: 16px;
-  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  padding: 1.25rem 2.5rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.35);
   position: relative;
   overflow: hidden;
   width: 100%;
@@ -534,24 +532,64 @@ button {
 
 .btn-cta-primary:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 18px 40px rgba(37, 211, 102, 0.6);
+  box-shadow: 0 16px 36px rgba(37, 211, 102, 0.65);
 }
 
 .btn-cta-primary svg {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   fill: currentColor;
   flex-shrink: 0;
 }
 
 .cta-subtext {
-  font-size: 0.92rem;
-  color: var(--text-muted);
+  font-size: 0.9rem;
+  color: #94a3b8;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.7rem;
+  gap: 0.6rem;
   font-weight: 500;
+}
+
+/* 3 Badges no Rodapé da Hero (Desktop) */
+.hero-bottom-badges {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  margin-top: 2.8rem;
+  padding-top: 0.5rem;
+  z-index: 3;
+}
+
+.hero-bottom-badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.hero-bottom-badge-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-500);
+}
+
+.hero-bottom-badge-item span {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.hero-badge-divider {
+  width: 1px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 /* ==========================================================================
@@ -2049,8 +2087,10 @@ button {
   }
 
   .hero-right-visual {
-    order: 2;
+    position: relative;
     width: 100%;
+    height: auto;
+    order: 2;
     display: flex;
     justify-content: center;
   }
@@ -2058,10 +2098,14 @@ button {
   .hero-faded-image-wrap {
     max-width: 440px;
     margin: 1.2rem auto 1.8rem auto;
+    height: auto;
   }
 
   .hero-faded-img {
     max-height: 330px;
+    border-radius: 24px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 45%, transparent 95%);
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 45%, transparent 95%);
   }
 
   .hero-cta-block {
@@ -2082,6 +2126,11 @@ button {
     font-size: 0.85rem;
     justify-content: center;
     gap: 0.5rem;
+  }
+
+  .hero-bottom-badges {
+    order: 4;
+    display: none;
   }
 
   /* Outras seções no Mobile */
