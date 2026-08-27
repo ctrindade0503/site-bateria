@@ -2042,7 +2042,7 @@ button {
      ========================================================================== */
   .hero-section {
     min-height: auto;
-    padding-top: calc(var(--header-height) + 1.2rem);
+    padding-top: calc(var(--header-height) + 2.6rem);
     padding-bottom: 3.5rem;
     text-align: center;
   }
@@ -2061,14 +2061,15 @@ button {
 
   .hero-header-block {
     order: 1;
-    margin-bottom: 0.75rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.85rem;
     text-align: center;
   }
 
   .hero-tagline {
     font-size: 0.82rem;
     letter-spacing: 2.8px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
   }
 
   .hero-title {
