@@ -2103,28 +2103,13 @@ button {
 
   .hero-faded-img {
     max-height: 340px;
-    border-radius: 24px;
-    /* Efeito degradê nas bordas no mobile: suave em todas as laterais */
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 8%, black 22%, black 78%, rgba(0,0,0,0.3) 92%, transparent 100%),
-                        linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.3) 8%, black 22%, black 78%, rgba(0,0,0,0.3) 92%, transparent 100%),
-                linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
-    -webkit-mask-composite: destination-in;
-    mask-composite: intersect;
+    border-radius: 18px;
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   .image-fade-vignette {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    pointer-events: none;
-    border-radius: 24px;
-    background: radial-gradient(ellipse at center, transparent 35%, rgba(6, 6, 8, 0.4) 68%, rgba(6, 6, 8, 0.95) 100%),
-                linear-gradient(to top, #060608 0%, rgba(6, 6, 8, 0.6) 8%, transparent 22%),
-                linear-gradient(to bottom, #060608 0%, rgba(6, 6, 8, 0.6) 8%, transparent 22%);
+    display: none;
   }
 
   .hero-cta-block {
